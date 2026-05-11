@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f7fb" />
+  <title>My Finance App v2</title>
+
+  <link rel="stylesheet" href="./css/01-base.css" />
+  <link rel="stylesheet" href="./css/02-wallet.css" />
+  <link rel="stylesheet" href="./css/03-cards.css" />
+  <link rel="stylesheet" href="./css/04-modals.css" />
+  <link rel="stylesheet" href="./css/05-forms.css" />
+  <link rel="stylesheet" href="./css/06-analytics.css" />
+  <link rel="stylesheet" href="./css/07-responsive.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="wallet-header">
+      <div>
+        <p class="wallet-header__eyebrow">Личный кошелёк</p>
+        <h1>Wallet</h1>
+      </div>
+      <button class="icon-button" type="button" id="refreshAppBtn" aria-label="Обновить данные">
+        <span aria-hidden="true">↻</span>
+      </button>
+    </header>
+
+    <main class="app-main">
+      <section class="main-account" aria-labelledby="mainAccountTitle">
+        <div class="main-account__top">
+          <div>
+            <p class="muted-label">Основной счёт</p>
+            <h2 id="mainAccountTitle">Загрузка…</h2>
+          </div>
+          <strong class="main-account__balance" id="mainAccountBalance">0 ₽</strong>
+        </div>
+
+        <div class="main-account__meta">
+          <div>
+            <span>Счетов</span>
+            <strong id="accountsCount">0</strong>
+          </div>
+          <div>
+            <span>Всего денег</span>
+            <strong id="totalBalance">0 ₽</strong>
+          </div>
+        </div>
+
+        <div class="main-account__actions">
+          <button class="action-button action-button--expense" type="button" data-open-transaction="expense">Расход</button>
+          <button class="action-button action-button--income" type="button" data-open-transaction="income">Доход</button>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="muted-label">Карточки счетов</p>
+            <h2>Счета</h2>
+          </div>
+          <button class="small-button" type="button" id="openAccountCreateBtn">+ Счёт</button>
+        </div>
+        <div class="cards-grid" id="accountsCards"></div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="muted-label">История</p>
+            <h2>Последние операции</h2>
+          </div>
+          <span class="section-note" id="transactionsCount">0 операций</span>
+        </div>
+        <div class="transactions-list" id="latestTransactions"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal hidden" id="transactionModal" role="dialog" aria-modal="true" aria-labelledby="transactionModalTitle">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__sheet">
+      <div class="modal__handle"></div>
+      <div class="modal__head">
+        <div>
+          <p class="muted-label" id="transactionModeLabel">Операция</p>
+          <h2 id="transactionModalTitle">Добавить операцию</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
+      </div>
+
+      <form class="form" id="transactionForm">
+        <input type="hidden" id="transactionTypeInput" value="expense" />
+
+        <label class="field">
+          <span>Сумма</span>
+          <input class="input" id="transactionAmountInput" type="text" inputmode="decimal" autocomplete="off" placeholder="0" required />
+        </label>
+
+        <label class="field">
+          <span>Счёт</span>
+          <select class="input" id="transactionAccountSelect" required></select>
+        </label>
+
+        <label class="field" id="transactionCategoryField">
+          <span>Категория</span>
+          <select class="input" id="transactionCategorySelect"></select>
+        </label>
+
+        <label class="field">
+          <span>Дата</span>
+          <input class="input" id="transactionDateInput" type="date" />
+        </label>
+
+        <label class="field">
+          <span>Комментарий</span>
+          <input class="input" id="transactionTitleInput" type="text" autocomplete="off" placeholder="Например: продукты" />
+        </label>
+
+        <button class="submit-button" type="submit" id="saveTransactionBtn">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__sheet">
+      <div class="modal__handle"></div>
+      <div class="modal__head">
+        <div>
+          <p class="muted-label">Счёт</p>
+          <h2 id="accountModalTitle">Новый счёт</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
+      </div>
+
+      <form class="form" id="accountForm">
+        <input type="hidden" id="accountIdInput" value="" />
+
+        <label class="field">
+          <span>Название</span>
+          <input class="input" id="accountNameInput" type="text" autocomplete="off" placeholder="Например: Основной" required />
+        </label>
+
+        <label class="field">
+          <span>Тип</span>
+          <select class="input" id="accountKindSelect">
+            <option value="spend">Счёт</option>
+            <option value="cash">Наличные</option>
+            <option value="reserve">Резерв</option>
+          </select>
+        </label>
+
+        <label class="field field--checkbox">
+          <input id="accountPrimaryInput" type="checkbox" />
+          <span>Сделать основным счётом</span>
+        </label>
+
+        <label class="field">
+          <span>Текущий баланс</span>
+          <input class="input" id="accountBalanceInput" type="text" inputmode="decimal" autocomplete="off" placeholder="0" />
+        </label>
+
+        <button class="submit-button" type="submit" id="saveAccountBtn">Сохранить счёт</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/01-config.js"></script>
+  <script src="./js/02-supabase.js"></script>
+  <script src="./js/03-state.js"></script>
+  <script src="./js/04-utils.js"></script>
+  <script src="./js/05-accounts.js"></script>
+  <script src="./js/06-transactions.js"></script>
+  <script src="./js/07-wallet.js"></script>
+  <script src="./js/08-modals.js"></script>
+  <script src="./js/09-analytics.js"></script>
+  <script src="./js/10-main.js"></script>
+</body>
+</html>

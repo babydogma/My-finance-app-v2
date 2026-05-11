@@ -1,0 +1,42 @@
+/* 03-cards.css — account cards and transactions */
+.cards-grid { display: grid; gap: 12px; }
+.account-card {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(17,24,39,0.065);
+  border-radius: 23px;
+  background: rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-soft);
+}
+.account-card__top { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; gap: 12px; }
+.account-card__name { min-width: 0; }
+.account-card__name strong { display: block; font-size: 17px; line-height: 1.05; letter-spacing: -0.035em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-card__name span { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; font-weight: 700; }
+.account-card__amount { font-size: 16px; letter-spacing: -0.025em; white-space: nowrap; }
+.account-card__bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.account-card__chip { min-height: 28px; padding: 0 10px; border-radius: 999px; display: inline-flex; align-items: center; color: var(--muted); background: rgba(17,24,39,0.045); font-size: 11px; font-weight: 800; }
+.account-card__edit { min-height: 34px; border: 0; border-radius: 999px; padding: 0 12px; color: var(--text); background: #fff; box-shadow: inset 0 0 0 1px rgba(17,24,39,0.07); font-size: 12px; font-weight: 850; }
+
+.transactions-list { display: grid; gap: 9px; }
+.transaction-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.86);
+  box-shadow: 0 7px 20px rgba(31,41,55,0.055);
+}
+.transaction-row__icon { width: 38px; height: 38px; border-radius: 14px; display: grid; place-items: center; color: #fff; font-weight: 900; }
+.transaction-row--income .transaction-row__icon { background: var(--green); }
+.transaction-row--expense .transaction-row__icon { background: var(--red); }
+.transaction-row__body { min-width: 0; }
+.transaction-row__body strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.transaction-row__body span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.transaction-row__amount { font-size: 14px; font-weight: 850; white-space: nowrap; }
+.transaction-row--income .transaction-row__amount { color: var(--green); }
+.transaction-row--expense .transaction-row__amount { color: var(--red); }
+.empty-state { padding: 18px; border-radius: 22px; color: var(--muted); background: rgba(255,255,255,0.65); font-size: 13px; font-weight: 700; text-align: center; }

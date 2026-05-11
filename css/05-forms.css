@@ -1,0 +1,21 @@
+/* 05-forms.css */
+.form { display: grid; gap: 13px; }
+.field { display: grid; gap: 7px; }
+.field > span { color: var(--muted); font-size: 12px; font-weight: 800; }
+.field--checkbox { grid-template-columns: 20px minmax(0,1fr); align-items: center; gap: 9px; padding: 12px; border-radius: 16px; background: rgba(17,24,39,0.035); }
+.field--checkbox span { color: var(--text); font-size: 13px; }
+.input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(17,24,39,0.085);
+  border-radius: 16px;
+  padding: 0 13px;
+  color: var(--text);
+  background: #fff;
+  font-size: 16px;
+  font-weight: 650;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+.input:focus { border-color: rgba(47,125,246,0.45); box-shadow: 0 0 0 4px rgba(47,125,246,0.11); }
+.submit-button { min-height: 52px; border: 0; border-radius: 18px; color: #fff; background: linear-gradient(135deg, #2f7df6, #165ed6); font-size: 15px; font-weight: 850; box-shadow: var(--shadow-soft); }
+.submit-button:disabled { opacity: 0.58; cursor: not-allowed; }

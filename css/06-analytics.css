@@ -1,4 +1,0 @@
-/* 06-analytics.css — small computed status helpers */
-.balance-negative { color: var(--red) !important; }
-.balance-positive { color: var(--green) !important; }
-.loading-mask { opacity: 0.62; pointer-events: none; }

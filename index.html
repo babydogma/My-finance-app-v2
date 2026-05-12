@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Мои финансы Lite</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hero card">
+      <div>
+        <p class="eyebrow">Мои финансы Lite</p>
+        <h1 id="totalBalance">0 ₽</h1>
+        <p class="muted">Общий баланс по всем счетам</p>
+      </div>
+      <button id="resetDemoBtn" class="ghost">Сбросить демо</button>
+    </header>
+
+    <section class="actions">
+      <button id="openTransactionBtn" class="primary">+ Операция</button>
+      <button id="openAccountBtn" class="secondary">+ Счёт</button>
+      <button id="openCategoryBtn" class="secondary">+ Категория</button>
+    </section>
+
+    <main class="grid">
+      <section class="card">
+        <div class="section-head"><h2>Статистика месяца</h2><span id="monthName"></span></div>
+        <div class="stats">
+          <div><span>Доходы</span><b id="monthIncome">0 ₽</b></div>
+          <div><span>Расходы</span><b id="monthExpense">0 ₽</b></div>
+          <div><span>Итог</span><b id="monthResult">0 ₽</b></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-head"><h2>Счета</h2></div>
+        <div id="accountsList" class="list"></div>
+      </section>
+
+      <section class="card wide">
+        <div class="section-head"><h2>Топ расходов</h2></div>
+        <div id="topCategories" class="list"></div>
+      </section>
+
+      <section class="card wide">
+        <div class="section-head"><h2>Операции</h2></div>
+        <div id="transactionsList" class="list"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="transactionModal">
+    <form id="transactionForm" method="dialog" class="modal card">
+      <h2>Добавить операцию</h2>
+      <select name="type"><option value="expense">Расход</option><option value="income">Доход</option></select>
+      <input name="amount" type="number" min="1" step="1" placeholder="Сумма" required />
+      <select name="accountId" required></select>
+      <select name="category" required></select>
+      <input name="date" type="date" required />
+      <input name="comment" placeholder="Комментарий" />
+      <p id="transactionError" class="error"></p>
+      <div class="modal-actions"><button type="button" class="ghost close">Отмена</button><button class="primary">Сохранить</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="accountModal">
+    <form id="accountForm" method="dialog" class="modal card">
+      <h2>Новый счёт</h2>
+      <input name="name" placeholder="Название" required />
+      <select name="type"><option>Карта</option><option>Наличные</option><option>Накопления</option></select>
+      <input name="initial" type="number" step="1" placeholder="Начальный баланс" required />
+      <div class="modal-actions"><button type="button" class="ghost close">Отмена</button><button class="primary">Создать</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="categoryModal">
+    <form id="categoryForm" method="dialog" class="modal card">
+      <h2>Новая категория</h2>
+      <select name="type"><option value="expense">Расход</option><option value="income">Доход</option></select>
+      <input name="name" placeholder="Название категории" required />
+      <div class="modal-actions"><button type="button" class="ghost close">Отмена</button><button class="primary">Добавить</button></div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
